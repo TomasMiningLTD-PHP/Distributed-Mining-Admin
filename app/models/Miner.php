@@ -1,15 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of cgminer_api
- *
- * @author kikko
+ * Miner class
+ * Allows for communication with CGMiner/SGMiner instance through
+ * provided socket API
+ * @author Kim
  */
 class Miner {
             private$socket = null;
@@ -96,7 +92,6 @@ class Miner {
     }
 
     private function getsock($addr, $port) {
-        $socket = null;
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if ($socket === false || $socket === null) {
             $error = socket_strerror(socket_last_error());
