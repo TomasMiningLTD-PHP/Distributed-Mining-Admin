@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Miner class
  * Allows for communication with CGMiner/SGMiner instance through
@@ -8,23 +7,26 @@
  * @author Kim
  */
 class Miner {
-            private$socket = null;
+            private $socket = null;
 
     function __construct($addr, $port) {
         $this->socket = $this->getsock($addr, $port);
     }
-    
-    public function printReadableResponse($response)
-    {
+
+    function __destruct() {
+        if ($this->socket != null)
+            socket_close($this->socket);
+    }
+
+    public function printReadableResponse($response) {
         print_r($response);
     }
 
-     public function request($cmd) {
-         $socket = $this->socket;
-        if ($socket != null) {
-            socket_write($socket, $cmd, strlen($cmd));
-            $line = $this->readsockline($socket);
-            socket_close($socket);
+    public function request($cmd) {
+ 
+        if ($this->socket != null) {
+            socket_write($this->socket, $cmd, strlen($cmd));
+            $line = $this->readsockline($this->socket);
 
             if (strlen($line) == 0) {
                 return $line;
@@ -76,9 +78,8 @@ class Miner {
 
         return null;
     }
-    
 
-    public function readsockline() {
+    private function readsockline() {
         $line = '';
         while (true) {
             $byte = socket_read($this->socket, 1);
