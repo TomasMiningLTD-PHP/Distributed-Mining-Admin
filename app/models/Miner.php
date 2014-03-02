@@ -7,15 +7,25 @@
  * @author Kim
  */
 class Miner {
-            private $socket = null;
+    private $addr, $port;
 
     function __construct($addr, $port) {
-        $this->socket = $this->getsock($addr, $port);
+        $this->addr = $addr;
+        $this->port = $port;
     }
 
-    function __destruct() {
-        if ($this->socket != null)
-            socket_close($this->socket);
+    
+    public function getReading($server) {
+        $sum = $this->request('{"command":"summary","parameter":""}');
+        $hash = $sum['SUMMARY'][0]['MHS 5s'];
+        $dev = $this->request('{"command":"devs","parameter":""}');
+        $temp = array();
+        for ($i =0; $i < sizeof($dev['DEVS']); $i++) {
+            $temp[$i] = $dev['DEVS'][$i]['Temperature'];
+        }
+        $reading = new Reading($server,$temp, $hash);
+        return $reading;
+
     }
 
     public function printReadableResponse($response) {
@@ -24,13 +34,15 @@ class Miner {
 
     public function request($cmd) {
  
-        if ($this->socket != null) {
-            socket_write($this->socket, $cmd, strlen($cmd));
-            $line = $this->readsockline($this->socket);
+        $socket = $this->getsock($this->addr, $this->port);
+        if ($socket != null) {
+            socket_write($socket, $cmd , strlen($cmd));
+            $line = $this->readsockline($socket);
 
             if (strlen($line) == 0) {
                 return $line;
             }
+            socket_close($socket);
 
 
             if (substr($line, 0, 1) == '{')
@@ -79,10 +91,10 @@ class Miner {
         return null;
     }
 
-    private function readsockline() {
+    private function readsockline($socket) {
         $line = '';
         while (true) {
-            $byte = socket_read($this->socket, 1);
+            $byte = socket_read($socket, 1);
             if ($byte === false || $byte === '')
                 break;
             if ($byte === "\0")

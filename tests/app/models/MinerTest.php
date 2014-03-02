@@ -8,7 +8,7 @@ class MinerTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Miner
      */
-    protected $minerSocket;
+    protected $miner;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -16,7 +16,7 @@ class MinerTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
 
-        $this->minerSocket = new Miner('localhost', 4028);
+        $this->miner = new Miner('localhost', 4028);
     }
 
     /**
@@ -24,7 +24,7 @@ class MinerTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        $this->minerSocket = null;
+        $this->miner = null;
     }
 
 
@@ -34,9 +34,15 @@ class MinerTest extends PHPUnit_Framework_TestCase {
      */
     public function testRequest() {
 
-        $res = $this->minerSocket->request('{"command":"version","parameter":""}');
+        $res = $this->miner->request('{"command":"version","parameter":""}');
         $this->assertEquals('4.0.0', $res['VERSION'][0]['SGMiner']);
         
+    }
+    
+    public function testCreateReading() {
+        $reading = $this->miner->getReading("localhost");
+        $this->assertGreaterThan(0, $reading->temp[0]);
+        $this->assertGreaterThan(0, $reading->hashSpeed);
     }
 
 
