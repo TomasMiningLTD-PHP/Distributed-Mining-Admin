@@ -8,14 +8,12 @@ class UtilityTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Utility
      */
-    protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Utility;
     }
 
     /**
@@ -31,10 +29,15 @@ class UtilityTest extends PHPUnit_Framework_TestCase {
      * @todo   Implement testCheckUser().
      */
     public function testCheckUser() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $user = new User("test_login", "password", 0);
+        $login = Utility::checkUser($user->username, $user->password);
+        $this->assertEquals(FALSE,$login);
+        $user->persist();
+        $login = Utility::checkUser($user->username, "wrong_password");
+        $this->assertEquals(FALSE,$login);
+        $login = Utility::checkUser($user->username, $user->password);
+        $this->assertEquals(TRUE,$login);
+        $user->delete();
     }
 
     /**

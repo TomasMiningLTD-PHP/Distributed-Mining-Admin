@@ -14,7 +14,9 @@
 class Utility {
     //put your code here
     public static function checkUser($username,$password){
-        $user = new User($username);
+        $user = User::findByUsername($username);
+        if($user == NULL)
+            return false;
         if(md5($password) === $user->password){
             return true;
         }
@@ -24,7 +26,7 @@ class Utility {
     
     public static function  readDbInfo()
     {
-        $lines = file('/home/kikko/Dropbox/Workspace/DistributedMiningAdmin/DB.conf',FILE_IGNORE_NEW_LINES);
+        $lines = file('../DB.conf',FILE_IGNORE_NEW_LINES);
         return $lines;
             
     }

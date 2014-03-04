@@ -16,7 +16,7 @@ class ServerTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $db_info = Utility::readDbInfo();
-        $this->db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);
+        Database::$db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);
         $this->owner = new User("owner_user", "password", "1");
         $this->owner->persist();
         $this->server = new Server("localhost",  $this->owner->id);
@@ -28,7 +28,7 @@ class ServerTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        
+        $this->owner->delete();
     }
 
     /**

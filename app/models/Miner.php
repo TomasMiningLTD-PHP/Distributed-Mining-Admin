@@ -15,17 +15,18 @@ class Miner {
     }
 
     
-    public function getReading($server) {
+    public function getReading() {
         $sum = $this->request('{"command":"summary","parameter":""}');
         $hash = $sum['SUMMARY'][0]['MHS 5s'];
+        $accepted = $sum['SUMMARY'][0]['Accepted'];
+        $rejected = $sum['SUMMARY'][0]['Rejected'];
+        $hardwareErrors = $sum['SUMMARY'][0]['Hardware Errors'];
         $dev = $this->request('{"command":"devs","parameter":""}');
         $temp = array();
         for ($i =0; $i < sizeof($dev['DEVS']); $i++) {
             $temp[$i] = $dev['DEVS'][$i]['Temperature'];
         }
-        $reading = new Reading($server,$temp, $hash);
-        return $reading;
-
+        return new Reading($this->addr,$temp, $hash, $accepted, $rejected, $hardwareErrors);
     }
 
     public function printReadableResponse($response) {

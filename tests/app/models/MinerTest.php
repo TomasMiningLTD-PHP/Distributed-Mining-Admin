@@ -40,7 +40,7 @@ class MinerTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testCreateReading() {
-        $reading = $this->miner->getReading("localhost");
+        $reading = $this->miner->getReading();
         $this->assertGreaterThan(0, $reading->temp[0]);
         $this->assertGreaterThan(0, $reading->hashSpeed);
     }

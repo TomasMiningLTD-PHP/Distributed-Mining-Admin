@@ -7,32 +7,16 @@
  * @author Kim
  */
 class Reading {
-    public $id,$server, $temp, $hashSpeed, $time;
+    public $server, $temp, $hashSpeed, $time, $accepted, $rejected,$hardwareErrors;
     
-    function __construct($server, $temp, $hashSpeed) {
+    function __construct($server, $temp, $hashSpeed, $accepted, $rejected, $hardwareErrors) {
         $this->server = $server;
         $this->temp = $temp;
         $this->hashSpeed = $hashSpeed;
         $this->time = new DateTime('UTC');
+        $this->accepted = $accepted;
+        $this->rejected = $rejected;
+        $this->hardwareErrors = $hardwareErrors;
     }
-    // TODO
-    public function persist()
-    {
-        
-    }
-    
-    public function delete()
-    {
-        
-    }
-    
-    // TODO
-    public static function find($id) {
-        
-    }
-    
-    // TODO
-    public static function findallOrderedByDate() {
-        
-    }
+
 }
