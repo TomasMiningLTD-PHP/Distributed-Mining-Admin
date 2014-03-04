@@ -12,29 +12,52 @@
  * @author Kim
  */
 class Server {
-    private $ip, $owner;
-    function __construct($ip, $owner) {
+    public $ip, $owner,$id;
+    function __construct($ip, $owner, $id = -1) {
         $this->ip = $ip;
         $this->owner = $owner;
+        $this->id = $id;
+    }
+   
+    
+    public static function findByIp($ip) {
+        $result = Database::$db->execQuery("SELECT * FROM server WHERE ip = '$ip'");
+        if ($result == null || sizeof($result) == 0)
+            return null;
+        return new Server($result['ip'], $result['owner'], $result['id']);
     }
     
-        // TODO
-    public function persist()
-    {
-        
+    public static function findById($id) {
+        $result = Database::$db->execQuery("SELECT * FROM server WHERE id = $id");
+        if ($result == null || sizeof($result) == 0)
+            return null;
+        return new Server($result['ip'], $result['owner'], $result['id']);
     }
     
-    // TODO
-    public static function find($ip) {
-        
-    }
     
     // TODO
     public static function findAll() {
+        $result = Database::$db->execMultipleResultsQuery("SELECT * FROM server");
+        if ($result == null || sizeof($result) == 0)
+            return null;
+        return $result;
+    }
+    
+    public function persist()
+    {
+        $result = Database::$db->execQuery("SELECT * FROM server WHERE id = $this->id");
+        if (sizeof($result) == 0) {
+            Database::$db->execUpdate("INSERT INTO server VALUES(NULL, '$this->ip', $this->owner)");
+            $res = Database::$db->execQuery("SELECT * FROM server WHERE ip = '$this->ip'");
+            $this->id = $res['id'];
+        } else {
+            Database::$db->execUpdate("UPDATE server SET ip='$this->ip', owner = '$this->owner' WHERE id = $this->id");
+        }            
         
     }
+    
     public function delete()
     {
-        
+        Database::$db->execUpdate("DELETE FROM server WHERE id = $this->id");
     }
 }

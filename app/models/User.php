@@ -12,31 +12,44 @@
  * @author Kim
  */
 class User {
-    private $username, $password, $access;
-    function __construct($username, $password, $access) {
+    public $username, $password, $access, $id;
+    function __construct($username, $password, $access,$id = -1) {
         $this->username = $username;
-        $this->password = $password;
+        $this->password = md5($password);
         $this->access = $access;
+        $this->id = $id;
     }
     
     // TODO
-    public static function find($username)
+    public static function findByUsername($username)
     {
-        
+        $result = Database::$db->execQuery("SELECT * FROM user WHERE username = '$username'");
+        if ($result == null || sizeof($result) == 0)
+            return null;
+        return $user = new User($result['username'], $result['passwd'],$result['accesslevel'],$result['id']);
     }
     //
-    public static function findAll()
+    public static function findById($id)
     {
-        
+        $result = Database::$db->execQuery("SELECT * FROM user WHERE id = $id");
+        if ($result == null || sizeof($result) == 0)
+            return null;
+        return new User($result['username'], $result['passwd'],$result['accesslevel'],$result['id']);
     }
-    // TODO
     public function persist()
     {
-        
+        $result = Database::$db->execQuery("SELECT * FROM user WHERE id = $this->id");
+        if (sizeof($result) == 0) {
+            Database::$db->execUpdate("INSERT INTO user VALUES(NULL, '$this->username', '$this->password', $this->access)");
+            $res = Database::$db->execQuery("SELECT * FROM user WHERE username = '$this->username'");
+            $this->id = $res['id'];
+        } else {
+            Database::$db->execUpdate("UPDATE user SET username='$this->username', passwd = '$this->password', accesslevel = $this->access WHERE id = $this->id");
+        }            
     }
     
     public function delete()
     {
-        
+        Database::$db->execUpdate("DELETE FROM user WHERE id = $this->id");
     }
 }

@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>Miner - Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <link href="../css/mining_css.css" rel="stylesheet" type="text/css"/>
+        <link href="../../views/css/mining_css.css" rel="stylesheet" type="text/css"/>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
@@ -53,3 +53,5 @@ and open the template in the editor.
         </section>
     </body>
 </html>
+
+

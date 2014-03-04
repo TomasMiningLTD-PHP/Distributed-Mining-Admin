@@ -18,11 +18,16 @@ body{
     background-color:#f4eee2;
     background-image:url(../images/noise.png);
 }
-
+#main{
+    
+    width:900px;
+    margin: auto;
+    height:auto;
+    float:left;
+}
 
 /*Header*/
 header{
-    position:relative;
     width:100%;
     height:60px;
     background-color:#fff;
@@ -31,7 +36,6 @@ header{
 }
 
 #header_wrapper{
-    position: relative;
     width: 900px;
     height: 60px;
     margin: auto;
@@ -45,17 +49,13 @@ header{
     background-position: center top;
     background-repeat: no-repeat;
 }
-.navigation,.sub_navigation{
+.navigation{
     width: auto;
     float: right;
     height: 60px;
     right: 60px;
 }
-.sub_navigation{
-    position: relative;
-    
-}
-.navigation a,.sub_navigation a{
+.navigation a{
     margin:auto;
     text-decoration: none;
     padding-top: 17px;
@@ -63,114 +63,36 @@ header{
     height:60px;
     font-family: 'Segoe UI', serif;
     font-weight: lighter;
+    color:#151737;
     text-align: center;
     vertical-align: baseline;
     transition: color 300ms ease-out 0s;
 }
-.navigation a{
-    color:#151737;
-}
-.sub_navigation a{
-    color:#660000;
-}
 .navigation a:hover{
     color:#4878c3;
 }
-.sub_navigation a:hover{
-    color:#ed2d2d;
-}
-.navigation_element,.sub_navigation_element{
+.navigation_element{
     width:130px;
     height: 60px;
     float:left;
-}
-.navigation_element{
     transition: border-bottom 200ms ease-in 0s;
-}
-.sub_navigation_element{
-    //transition: border-top 200ms ease-in 0s;
+   
+    
 }
 .navigation_element:hover{
     border-bottom: 1px solid #7d74bb
 }
-.sub_navigation_element:hover{
-    //border-top: 1px solid #7d74bb
-}
 
 /*Content*/
-#main{
+    .sub_navigation{
     position: relative;
-    width:100%;
-    height:auto;
-    float:left;
+    height:60px;
+    top:0;
+    right:0;
 }
+
 #main_content{
-    width: 900px;
     height: auto;
-    margin: auto;
-}
-
-#main_info{
-    width: 100%;
-    position: relative;
-    height: auto;
-    float:left;
-}
-
-.info_wrapper{
-    width: 600px;
-    height: auto;
-    margin: 0px auto 50px auto;
-    position:relative;
-}
-.rig_info{
-    height: 100px;
-    width: auto;
-}
-
-.clear{
-    clear:both;
-}
-.rig_info_headers_element{
-    float:left;
-    height:auto;
-    width:auto;
-    margin-right: 30px;
-}
-.rig_info_element p{
-    
-}
-.info_headers{
-    float:left;
-    width:600px;
-    height:auto;
-   
-}
-.info_headers h4, .rig_info_headers_elements h4{
-    margin-bottom: 10px;
-}
-.info_headers_element{
-    float:left;
-    height:auto;
-    width:150px;
-    margin-right: 30px;
-}
-
-
-.info_values{
-    width:600px;
-    height:20px;
-    margin-bottom: 10px;
-    float:left;
-}
-.info_values_element{
-    float:left;
-    height:auto;
-    width:150px;
-    margin-right: 30px;
-}
-.info_values_element p{
-    margin:0px 0px 10px 0px;
 }
 
 /*Footer*/
