@@ -16,7 +16,8 @@ class UserTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->user = new User("test_user", "password", 0);
-        Database::$db = new Database();
+        $db_info = Utility::readDbInfo();
+        Database::$db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);
         $this->user->persist();
     }
 

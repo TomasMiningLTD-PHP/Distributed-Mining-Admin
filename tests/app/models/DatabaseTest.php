@@ -15,7 +15,8 @@ class DatabaseTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->db = new Database();
+        $db_info = Utility::readDbInfo();
+        $this->db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);
     }
 
     /**

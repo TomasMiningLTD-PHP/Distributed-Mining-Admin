@@ -11,7 +11,7 @@
  *
  * @author villiam
  */
-class Model {
+class Utility {
     //put your code here
     public static function checkUser($username,$password){
         $user = new User($username);
@@ -20,5 +20,12 @@ class Model {
         }
         else
             return false;
+    }
+    
+    public static function  readDbInfo()
+    {
+        $lines = file('/home/kikko/Dropbox/Workspace/DistributedMiningAdmin/DB.conf',FILE_IGNORE_NEW_LINES);
+        return $lines;
+            
     }
 }
