@@ -90,6 +90,9 @@ header{
     top:0;
     right:0;
 }
+.sub_navigation  div.navigation_element:hover{
+    border: none;
+}
 
 #main_content{
     height: auto;

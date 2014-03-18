@@ -27,7 +27,7 @@ and open the template in the editor.
             <div id="wrapper">
                 <div class="user-icon"></div>
                 <div class="pass-icon"></div>
-                <form name="login-form" class="login-form" action="" method="post">
+                <form name="login-form" class="login-form" action="/login" method="post">
 
 
                     <div class="header">
