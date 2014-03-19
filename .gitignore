@@ -3,3 +3,4 @@ DB.conf
 .buildpath
 .settings/*
 *.swp
+bootstrap.php
