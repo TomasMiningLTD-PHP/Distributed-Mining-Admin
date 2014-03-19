@@ -207,3 +207,14 @@ CONTENT
 	position: relative;
 	bottom: -1px;
 }
+#errormessage{
+    text-align: center;
+}
+#errormessage h4{
+    font-family: 'Segoe UI', serif;
+	font-weight: 300;
+	font-size: 28px;
+	line-height:34px;
+        color: #990000;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}

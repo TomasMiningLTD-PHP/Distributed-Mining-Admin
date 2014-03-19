@@ -23,7 +23,6 @@ body{
     width:900px;
     margin: auto;
     height:auto;
-    float:left;
 }
 
 /*Header*/
@@ -84,6 +83,11 @@ header{
 }
 
 /*Content*/
+#main_wrapper{
+    float:left;
+    width: 900px;
+    height:auto;
+}
     .sub_navigation{
     position: relative;
     height:60px;

@@ -73,6 +73,12 @@ class Database {
         return $result;
        
     }
+    public static function initDb() {
+        if($this->db === null){
+            $db_info = Utility::readDbInfo();
+            $this->db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);  
+        }
+    }
     function __destruct() {
         $this->con->close();
     }

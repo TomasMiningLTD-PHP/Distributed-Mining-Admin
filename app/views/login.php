@@ -28,27 +28,25 @@ and open the template in the editor.
                 <div class="user-icon"></div>
                 <div class="pass-icon"></div>
                 <form name="login-form" class="login-form" action="/login" method="post">
-
-
                     <div class="header">
                         <h1>Login - MiAdmin</h1>
                     </div>
-
-
                     <div class="content">
                         <input name="username" type="text" class="input username" value="Username" onfocus="this.value = ''" />
                         <input name="password" type="password" class="input password" value="Password" onfocus="this.value = ''" />
                     </div>
-
                     <div class="footer">
-                        <input type="submit" name="submit" value="Login" class="button" />
-                        <input type="submit" name="submit" value="Register" class="register" />
+                        <input type="submit" name="login" value="Login" class="button" />
+                        <input type="submit" name="register" value="Register" class="register" />
                     </div>
-
-
                 </form>
-
-
+                <div id="errormessage">
+                    <h4>
+                        <?php if(isset($errormessage)){
+                            echo $errormessage;
+                        }?>
+                    </h4>
+                </div>
             </div>
         </section>
     </body>
