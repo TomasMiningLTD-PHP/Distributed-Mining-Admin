@@ -26,8 +26,7 @@ class Utility {
     
     public static function  readDbInfo()
     {
-        $lines = file('../DB.conf',FILE_IGNORE_NEW_LINES);
+	$lines = file('DB.conf',FILE_IGNORE_NEW_LINES);
         return $lines;
-            
     }
 }

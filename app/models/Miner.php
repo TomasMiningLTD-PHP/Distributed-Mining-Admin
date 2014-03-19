@@ -8,7 +8,6 @@
  */
 class Miner {
     private $addr, $port;
-
     function __construct($addr, $port) {
         $this->addr = $addr;
         $this->port = $port;

@@ -1,2 +1,5 @@
 nbproject/
 DB.conf
+.buildpath
+.settings/*
+*.swp

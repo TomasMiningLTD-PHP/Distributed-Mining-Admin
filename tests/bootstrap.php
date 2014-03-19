@@ -16,6 +16,6 @@
 
 include_once('AutoLoader.php');
 // Register the directory to your include files
-AutoLoader::registerDirectory('/home/kikko/Dropbox/Workspace/DistributedMiningAdmin/app/models');
+AutoLoader::registerDirectory('/home/kikko/Dropbox/Workspace/eclipse/DistributedMining/app/models');
 
 ?>
