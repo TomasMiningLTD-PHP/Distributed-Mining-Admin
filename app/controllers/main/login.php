@@ -7,8 +7,7 @@ function _login(){
     createTestUser($username,$password);
     if(User::findByUsername($username) != null){
         if(isset($_POST['login'])){
-        $view = new View(APP_PATH . 'views/login.php');
-        $view->set("errormessage", $password . " " . $username);
+        $view = new View(APP_PATH . 'views/overview.html');
         }
         elseif (isset($_POST['register'])){
             $view = new View(APP_PATH . 'views/register.html');
