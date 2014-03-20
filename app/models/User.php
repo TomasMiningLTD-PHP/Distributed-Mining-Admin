@@ -23,7 +23,7 @@ class User {
     // TODO
     public static function findByUsername($username)
     {
-        $result = Database::$db->execQuery("SELECT * FROM user WHERE username = '$username'");
+		$result = Database::$db->execQuery("SELECT * FROM user WHERE username = '$username'");
         if ($result == null || sizeof($result) == 0)
             return null;
         return $user = new User($result['username'], $result['passwd'],$result['accesslevel'],$result['id']);

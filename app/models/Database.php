@@ -52,14 +52,10 @@ class Database {
                 . "REFERENCES reading(id),  PRIMARY KEY (id));";
         $this->con->query($temp_reading);
 
-	$algo = "CREATE TABLE IF NOT EXISTS algorithm (id INT(11) NOT NULL AUTO_INCREMENT, " 
-		. "name VARCHAR(255) UNIQUE NOT NULL, PRIMARY KEY (id))";
-	$this->con->query($algo);
-
 	$pool = "CREATE TABLE IF NOT EXISTS pool (id INT(11) NOT NULL AUTO_INCREMENT, " 
 		. "name VARCHAR(255) UNIQUE NOT NULL, url VARCHAR(255) NOT NULL, " 
 		. "username VARCHAR(255) NOT NULL, passwd VARCHAR(255) NOT NULL, " 
-		. "algorithm VARCHAR(255) NOT NULL, FOREIGN KEY(algorithm) REFERENCES algorithm(name), " 
+		. "algorithm VARCHAR(255) NOT NULL,  " 
 		. " PRIMARY KEY (id))";
 	$this->con->query($pool);
 
@@ -89,7 +85,7 @@ class Database {
        
     }
     public static function initDb() {
-        if($this->db === null){
+        if(Database::$db === null){
             $db_info = Utility::readDbInfo();
 	    Database::$db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);  
         }
