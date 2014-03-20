@@ -14,12 +14,12 @@ error_reporting(E_ALL);
 // Madatory KISSMVC Settings (please configure)
 //===============================================
 define('APP_PATH','app/'); //with trailing slash pls
-define('WEB_FOLDER','/kissmvc/'); //with trailing slash pls
-
+define('WEB_FOLDER','/'); //with trailing slash pls
+define('WEB_DOMAIN','http://localhost'); //with http:// and NO trailing slash pls
 //===============================================
 // Other Settings
 //===============================================
-$GLOBALS['sitename']='KISSMVC - Simple PHP MVC Framework';
+$GLOBALS['sitename']='MiAdmin';
 
 //===============================================
 // Includes
@@ -81,7 +81,11 @@ function __autoload($classname) {
 }
 */
 
-//===============================================
+function myUrl($url='',$fullurl=false) {
+  $s=$fullurl ? WEB_DOMAIN : '';
+  $s.=WEB_FOLDER.$url;
+  return $s;
+}//===============================================
 // Start the controller
 //===============================================
 $controller = new Controller(APP_PATH.'controllers/',WEB_FOLDER,'main','index');

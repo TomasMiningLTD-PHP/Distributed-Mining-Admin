@@ -23,7 +23,9 @@ class Database {
         $this->setUpDb($dbname);
         
     }
-    
+	public function escapeString($string) {
+		return $this->con->real_escape_string($string);
+	}	
     private function setUpDb($dbname) {
         $selected = $this->con->select_db($dbname);
         if(!$selected) {
