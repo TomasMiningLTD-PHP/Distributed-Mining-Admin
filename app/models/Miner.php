@@ -12,8 +12,13 @@ class Miner {
         $this->addr = $addr;
         $this->port = $port;
     }
-
-    
+	public function listPools() {
+		$pools = $this->request('{"command":"pools"}');
+		return $pools['POOLS'];
+	}
+	public function switchPool($poolNumber) {
+		$this->request('{"command":"switchpool", "parameter":"' . $poolNumber .'"}');
+	}	
     public function getReading() {
         $sum = $this->request('{"command":"summary","parameter":""}');
         $hash = $sum['SUMMARY'][0]['MHS 5s'];
@@ -25,7 +30,15 @@ class Miner {
         for ($i =0; $i < sizeof($dev['DEVS']); $i++) {
             $temp[$i] = $dev['DEVS'][$i]['Temperature'];
         }
-        return new Reading($this->addr,$temp, $hash, $accepted, $rejected, $hardwareErrors);
+		$pools = $this->listPools();
+		$stratumUrl = "-";
+		foreach($pools as $pool){
+			if($pool['Stratum Active'] == 1){
+				$stratumUrl = $pool['Stratum URL'];
+				break;
+			}
+		}
+		return new Reading($this->addr,$temp, $hash, $accepted, $rejected, $hardwareErrors, $stratumUrl);
     }
 
     public function printReadableResponse($response) {

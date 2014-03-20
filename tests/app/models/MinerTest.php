@@ -44,6 +44,15 @@ class MinerTest extends PHPUnit_Framework_TestCase {
         $this->assertGreaterThan(0, $reading->temp[0]);
         $this->assertGreaterThan(0, $reading->hashSpeed);
     }
+	public function testListPools(){
+		$pools = $this->miner->listPools();
+		$this->assertGreaterThan(0, sizeof($pools));
+
+	}
+	public function testSwitchPool() {
+		$this->miner->switchPool(1);
+		$this->miner->switchPool(0);
+	}
 
 
 }

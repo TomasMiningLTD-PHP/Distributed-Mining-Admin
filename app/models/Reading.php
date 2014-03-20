@@ -7,9 +7,9 @@
  * @author Kim
  */
 class Reading {
-    public $server, $temp, $hashSpeed, $time, $accepted, $rejected,$hardwareErrors;
+	public $server, $temp, $hashSpeed, $time, $accepted, $rejected,$hardwareErrors,$stratumUrl;
     
-    function __construct($server, $temp, $hashSpeed, $accepted, $rejected, $hardwareErrors) {
+    function __construct($server, $temp, $hashSpeed, $accepted, $rejected, $hardwareErrors, $stratumUrl = "-") {
         $this->server = $server;
         $this->temp = $temp;
         $this->hashSpeed = $hashSpeed;
@@ -17,6 +17,7 @@ class Reading {
         $this->accepted = $accepted;
         $this->rejected = $rejected;
         $this->hardwareErrors = $hardwareErrors;
+		$this->stratumUrl = $stratumUrl;
     }
 
 }
