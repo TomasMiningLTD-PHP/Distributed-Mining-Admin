@@ -49,6 +49,14 @@ class PoolTest extends PHPUnit_Framework_TestCase
 		$result = Pool::findById($this->pool->id);
 		$this->assertEquals($result->name, $this->pool->name);
     }
+	public function testFindAll() {
+		$pool = new Pool("TestPool3", "localhost", "username", "password", "scryp");
+		$pool->persist();
+		$result = Pool::findAll();
+		$this->assertGreaterThan(0, sizeof($result));
+		$pool->delete();
+
+	}
 
     /**
      * @covers Pool::persist

@@ -28,14 +28,20 @@ class Server {
     }
     
     public static function findById($id) {
-        $result = Database::$db->execQuery("SELECT * FROM server WHERE id = $id");
+		$result = Database::$db->execQuery("SELECT * FROM server WHERE id = $id");
         if ($result == null || sizeof($result) == 0)
             return null;
         return new Server($result['ip'], $result['owner'], $result['id']);
     }
+	public static function findByOwner($id){
+		$result = Database::$db->execQuery("SELECT * FROM server WHERE owner = $id");
+        if ($result == null || sizeof($result) == 0)
+            return null;
+        return new Server($result['ip'], $result['owner'], $result['id']);
+	}
     
     
-    // TODO
+	// TODO
     public static function findAll() {
         $result = Database::$db->execMultipleResultsQuery("SELECT * FROM server");
         if ($result == null || sizeof($result) == 0)

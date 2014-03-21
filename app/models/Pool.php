@@ -21,6 +21,15 @@ class Pool {
             return null;
 		return new Pool($result['name'], $result['url'],$result['username'],$result['passwd'], $result['algorithm'], $result['id']);
 	}
+	public static function findAll() {
+		$result = Database::$db->execMultipleResultsQuery("SELECT * FROM pool");
+		if ($result == null || sizeof($result) == 0 )
+			return null;
+		$ret = array();
+		foreach($result as $pool)
+			$ret[] = new Pool($pool['name'], $pool['url'],$pool['username'],$pool['passwd'], $pool['algorithm'], $pool['id']);
+		return $ret;
+	}
 	public function persist()
     {
         $result = Database::$db->execQuery("SELECT * FROM pool WHERE id = $this->id");

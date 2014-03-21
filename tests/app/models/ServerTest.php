@@ -18,8 +18,8 @@ class ServerTest extends PHPUnit_Framework_TestCase {
         $db_info = Utility::readDbInfo();
         Database::$db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);
         $this->owner = new User("owner_user", "password", "1");
-        $this->owner->persist();
-        $this->server = new Server("localhost",  $this->owner->id);
+		$this->owner->persist();
+		$this->server = new Server("10.0.0.1",  $this->owner->id);
         $this->server->persist();
     }
 
@@ -60,17 +60,23 @@ class ServerTest extends PHPUnit_Framework_TestCase {
         $s2 = new Server("192.168.0.3",  $this->owner->id);
         $s2->persist();
         $results = Server::findAll();
-        $this->assertEquals(3,  sizeof($results));
-        $s1->delete();
+		$this->assertGreaterThan(2,  sizeof($results));
+		$s1->delete();
         $s2->delete();
     }
+public function testFindByOwner() {
+		$serv = Server::findByOwner(463);
+		$this->assertEquals(463, $serv->owner);
+	}
+
+
 
     /**
      * @covers Server::persist
      * @todo   Implement testPersist().
      */
     public function testPersist() {
-        $server = new Server("127.0.0.1",  $this->owner->id);
+		$server = new Server("10.0.1.0",  $this->owner->id);
         $server->persist();
         $this->assertEquals($server->ip, Server::findById($server->id)->ip);
         $server->ip = "192.168.0.1";
@@ -85,7 +91,7 @@ class ServerTest extends PHPUnit_Framework_TestCase {
      * @todo   Implement testDelete().
      */
     public function testDelete() {
-        $this->server->delete();
+		$this->server->delete();
         $server = Server::findById($this->server->id);
         $this->assertEquals(null, $server);
     }

@@ -64,6 +64,8 @@ class Database {
     }
     public function execMultipleResultsQuery($query) {
         $result = $this->con->query($query);
+		if ($result == FALSE)
+			return NULL;
         $ret = array();
         while($row =$result->fetch_array(MYSQLI_ASSOC) )
             array_push($ret, $row);
