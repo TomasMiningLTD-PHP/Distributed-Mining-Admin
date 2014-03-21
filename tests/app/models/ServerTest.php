@@ -66,7 +66,7 @@ class ServerTest extends PHPUnit_Framework_TestCase {
     }
 public function testFindByOwner() {
 		$serv = Server::findByOwner(463);
-		$this->assertEquals(463, $serv->owner);
+		$this->assertEquals(463, $serv[0]->owner);
 	}
 
 

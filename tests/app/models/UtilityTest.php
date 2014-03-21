@@ -29,13 +29,11 @@ class UtilityTest extends PHPUnit_Framework_TestCase {
      * @todo   Implement testCheckUser().
      */
     public function testCheckUser() {
-        $user = new User("test_login", "password", 0);
-        $login = Utility::checkUser($user->username, $user->password);
-        $this->assertEquals(FALSE,$login);
+        $user = new User("test_login_qwe", "password", 0);
         $user->persist();
         $login = Utility::checkUser($user->username, "wrong_password");
-        $this->assertEquals(FALSE,$login);
-        $login = Utility::checkUser($user->username, $user->password);
+		$this->assertEquals(FALSE,$login);
+		$login = Utility::checkUser($user->username, "password");
         $this->assertEquals(TRUE,$login);
         $user->delete();
     }

@@ -12,11 +12,12 @@
  * @author Kim
  */
 class Server {
-    public $ip, $owner,$id;
+    public $ip, $owner,$id,$port;
     function __construct($ip, $owner, $id = -1) {
         $this->ip = $ip;
         $this->owner = $owner;
-        $this->id = $id;
+		$this->id = $id;
+		$this->port = 4028;
     }
    
     
@@ -34,10 +35,13 @@ class Server {
         return new Server($result['ip'], $result['owner'], $result['id']);
     }
 	public static function findByOwner($id){
-		$result = Database::$db->execQuery("SELECT * FROM server WHERE owner = $id");
+		$result = Database::$db->execMultipleResultsQuery("SELECT * FROM server WHERE owner = $id");
         if ($result == null || sizeof($result) == 0)
-            return null;
-        return new Server($result['ip'], $result['owner'], $result['id']);
+			return null;
+		$ret = array();
+		foreach($result as $pool)
+			$ret[] = new Server($pool['ip'], $pool['owner'], $pool['id']);
+		return $ret;
 	}
     
     

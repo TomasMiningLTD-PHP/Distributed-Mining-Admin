@@ -1,29 +1,19 @@
 <?php
 require_once(dirname(__FILE__).'/../../models/Database.php');
 require_once(dirname(__FILE__).'/../../models/User.php');
+require_once(dirname(__FILE__).'/../../models/Utility.php');
 function _index(){
     Database::initDb();
 	$username = htmlspecialchars(Database::$db->escapeString($_POST['username']));
 	$password = htmlspecialchars(Database::$db->escapeString($_POST['password']));
-    
-    createTestUser($username,$password);
-    if(User::findByUsername($username) != null){
-        if(isset($_POST['login'])){
-        $view = new View(APP_PATH . 'views/getOverview.php');
-        }
-        elseif (isset($_POST['register'])){
-            $view = new View(APP_PATH . 'views/register.php');
-        }
-        $view->dump();
-    }
-    else{
+	if(isset($_POST['login']) && Utility::checkUser($username, $password)){
+			
+		$view = new View(APP_PATH . 'views/getOverview.php');
+    } else {
         $view = new View(APP_PATH . 'views/login.php');
         $view->set("errormessage", "Password or username were incorrect");
-        $view->dump();
     }
-    
-    /*$db_info = Utility::readDbInfo();
-    $this->db = new Database($db_info[0],$db_info[1],$db_info[2],$db_info[3]);*/
+		$view->dump();
 }
 function createTestUser($userName,$password){
     $test = new User($userName,$password,1);

@@ -15,7 +15,7 @@ class User {
     public $username, $password, $access, $id;
     function __construct($username, $password, $access,$id = -1) {
         $this->username = $username;
-        $this->password = md5($password);
+        $this->password = $password;
         $this->access = $access;
         $this->id = $id;
     }
@@ -38,6 +38,7 @@ class User {
     }
     public function persist()
     {
+		$this->password = md5($this->password);
         $result = Database::$db->execQuery("SELECT * FROM user WHERE id = $this->id");
         if (sizeof($result) == 0) {
             Database::$db->execUpdate("INSERT INTO user VALUES(NULL, '$this->username', '$this->password', $this->access)");
