@@ -130,9 +130,11 @@ header{
 }
 .info_body{
     height:auto;
+    
     min-height:120px;
     width:850px;
     margin-top: 10px;
+    
 }
 .info_body_element{
     width:100%;
