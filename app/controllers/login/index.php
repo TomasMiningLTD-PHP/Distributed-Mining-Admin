@@ -7,13 +7,13 @@ function _index(){
 	$username = htmlspecialchars(Database::$db->escapeString($_POST['username']));
 	$password = htmlspecialchars(Database::$db->escapeString($_POST['password']));
 	if(isset($_POST['login']) && Utility::checkUser($username, $password)){
-			
-		$view = new View(APP_PATH . 'views/getOverview.php');
+            header('Location: overview');
     } else {
         $view = new View(APP_PATH . 'views/login.php');
         $view->set("errormessage", "Password or username were incorrect");
+         $view->dump();
     }
-		$view->dump();
+   
 }
 function createTestUser($userName,$password){
     $test = new User($userName,$password,1);

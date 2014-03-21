@@ -6,12 +6,12 @@ require_once(dirname(__FILE__).'/../models/Reading.php');
 require_once(dirname(__FILE__).'/../models/Server.php');
 $user = User::findByUsername("user");
 $servers = Server::findByOwner($user->id);
-print("We are in login");
+$readingArray = array();
 foreach($servers as $server){
 	$miner = new Miner($server->ip, $server->port);
-	$readingObject = $miner->getReading();
-	print_r($readingObject);
+	$readingArray[] = $miner->getReading();
 }
+echo json_encode($readingArray);
 
 
 

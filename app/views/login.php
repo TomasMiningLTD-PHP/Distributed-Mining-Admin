@@ -23,7 +23,7 @@ and open the template in the editor.
                 </div>
             </div>
         </header>
-        <section id="main_content">
+        <section id="main">
             <div id="wrapper">
                 <div class="user-icon"></div>
                 <div class="pass-icon"></div>
