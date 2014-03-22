@@ -29,10 +29,19 @@ class Utility {
 	$lines = file('DB.conf',FILE_IGNORE_NEW_LINES);
         return $lines;
     }
-	public static function isLoggedIn() {
-		return $_SESSION['logged_in'] == TRUE;
+	public static function getUser() {
+		if(isset($_SESSION['user']))
+			return $_SESSION['user'];
+		else
+			return NULL;
 	}
-	public static function setLoggedIn($status = TRUE) {
-		$_SESSION['logged_in'] = $status;
+	public static function isLoggedIn() {
+		return $isset($_SESSION['user']);
+	}
+	public static function login($username){
+		$_SESSION['user'] = $username;
+	}
+	public static function logout() {
+		unset($_SESSION['user']);
 	}
 }
