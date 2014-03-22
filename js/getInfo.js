@@ -5,7 +5,7 @@
  */
 $(document).ready(function() {
      $.ajax({
-            url: 'app/views/getOverview.php',
+            url: '../app/controllers/overview/getOverview.php',
             type: 'post',
             dataType: 'json',
             success: function(data) {
