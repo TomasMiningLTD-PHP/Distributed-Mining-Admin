@@ -56,6 +56,9 @@ class MinerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSwitchPoolByName() {
+		$pool = Pool::findByName("Dogehouse 5");
+		$this->miner->switchPoolByName($pool->name);
+		$this->assertEquals($pool->url,$this->miner->getActiveStratum());
 		$pool = Pool::findByName("Trademybit EU");
 		$this->miner->switchPoolByName($pool->name);
 	}

@@ -48,11 +48,12 @@ class Miner {
 		$pools = $this->listPools();
 		$stratumUrl = "-"; 
 		foreach($pools as $pool){
-			if($pool['Stratum Active'] == 1){
-				$stratumUrl = $pool['Stratum URL'];
+			if($pool['Priority'] == 0){
+				$stratumUrl = $pool['URL'];
 				break;
 			}
 		}
+		return $stratumUrl;
 	}
     public function getReading() {
         $sum = $this->request('{"command":"summary","parameter":""}');
