@@ -56,13 +56,16 @@ class Server {
     public function persist()
     {
         $result = Database::$db->execQuery("SELECT * FROM server WHERE id = $this->id");
+		if(sizeof($result) == 0){
+			$result = Database::$db->execQuery("SELECT * FROM server WHERE ip = \"$this->ip\""); 
+		}
         if (sizeof($result) == 0) {
             Database::$db->execUpdate("INSERT INTO server VALUES(NULL, '$this->ip', $this->owner)");
-            $res = Database::$db->execQuery("SELECT * FROM server WHERE ip = '$this->ip'");
-            $this->id = $res['id'];
         } else {
             Database::$db->execUpdate("UPDATE server SET ip='$this->ip', owner = '$this->owner' WHERE id = $this->id");
         }            
+        $res = Database::$db->execQuery("SELECT * FROM server WHERE ip = '$this->ip'");
+        $this->id = $res['id'];
         
     }
     

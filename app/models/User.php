@@ -40,13 +40,16 @@ class User {
     {
 		$this->password = md5($this->password);
         $result = Database::$db->execQuery("SELECT * FROM user WHERE id = $this->id");
+		if(sizeof($result) == 0)
+			$result = Database::$db->execQuery("SELECT * FROM user WHERE username = \"$this->username\"");
+
         if (sizeof($result) == 0) {
             Database::$db->execUpdate("INSERT INTO user VALUES(NULL, '$this->username', '$this->password', $this->access)");
-            $res = Database::$db->execQuery("SELECT * FROM user WHERE username = '$this->username'");
-            $this->id = $res['id'];
         } else {
             Database::$db->execUpdate("UPDATE user SET username='$this->username', passwd = '$this->password', accesslevel = $this->access WHERE id = $this->id");
         }            
+        $res = Database::$db->execQuery("SELECT * FROM user WHERE username = '$this->username'");
+        $this->id = $res['id'];
     }
     
     public function delete()

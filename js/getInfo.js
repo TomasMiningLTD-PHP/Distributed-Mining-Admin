@@ -4,22 +4,28 @@
  * and open the template in the editor.
  */
 $(document).ready(function() {
-     $.ajax({
-            url: 'overview/getOverview',
-            type: 'post',
-            dataType: 'json',
+	var interval = 10000;
+	var refresh = function() {
+	     $.ajax({
+			url: 'overview/getOverview',
+			type: 'post',
+			dataType: 'json',
             success: function(data) {
-                fillTable(data);
+				fillTable(data);
+				setTimeout(function(){
+					refresh();
+				}, interval);
             },
             error: function(result) {
                 var msg = $.parseJSON(result);
                 alert("error " + msg);
             }
         });
-        
-        
+	}        
+	refresh();
 });
 function fillTable(data) {
+	$("#main_wrapper").empty();
     tmp = 1;
     $.each(data, function(key, value) {
         

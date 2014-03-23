@@ -33,13 +33,17 @@ class Pool {
 	public function persist()
     {
         $result = Database::$db->execQuery("SELECT * FROM pool WHERE id = $this->id");
+		if(sizeof($result) == 0)
+			$result = Database::$db->execQuery("SELECT * FROM pool WHERE name = \"$this->name\"");
+
         if (sizeof($result) == 0) {
 			Database::$db->execUpdate("INSERT INTO pool VALUES(NULL,'$this->name', '$this->url', '$this->username', '$this->password', '$this->algorithm')");
-            $res = Database::$db->execQuery("SELECT * FROM pool WHERE name = '$this->name'");
-            $this->id = $res['id'];
         } else {
 			Database::$db->execUpdate("UPDATE pool SET name='$this->name', url='$this->url', username='$this->username', passwd = '$this->password', algorithm ='$this->algorithm' WHERE id=$this->id");
-        }            
+		}
+		$res = Database::$db->execQuery("SELECT * FROM pool WHERE name = '$this->name'");
+		$this->id = $res['id'];
+         
     }
     
     public function delete()

@@ -16,9 +16,44 @@ class Miner {
 		$pools = $this->request('{"command":"pools"}');
 		return $pools['POOLS'];
 	}
+	public function switchPoolByName($name) {
+		$pool = Pool::findByName($name);
+		$pools = $this->listPools();
+		$id = FALSE;
+		foreach($pools as $key=>$currPool){
+			if($currPool['URL'] == $pool->url){
+				$id = $currPool['POOL'];
+			}	
+		}
+		// Pool is not in miner list, must add it
+		if ($id == FALSE){
+			$this->request("{\"command\": \"addpool\",\"parameter\": \"$pool->url,$pool->username,$pool->password\"}");
+			$pools = $this->listPools();
+
+			foreach($pools as $key=>$currPool){
+				if($currPool['URL'] == $pool->url){
+					$id = $currPool['POOL'];
+				}	
+			}
+		}
+		print($id);
+		if($id != FALSE){
+			$this->switchPool($id);
+		}
+	}
 	public function switchPool($poolNumber) {
 		$this->request('{"command":"switchpool", "parameter":"' . $poolNumber .'"}');
 	}	
+	public function getActiveStratum(){
+		$pools = $this->listPools();
+		$stratumUrl = "-"; 
+		foreach($pools as $pool){
+			if($pool['Stratum Active'] == 1){
+				$stratumUrl = $pool['Stratum URL'];
+				break;
+			}
+		}
+	}
     public function getReading() {
         $sum = $this->request('{"command":"summary","parameter":""}');
         $hash = $sum['SUMMARY'][0]['MHS 5s'];
@@ -30,14 +65,7 @@ class Miner {
         for ($i =0; $i < sizeof($dev['DEVS']); $i++) {
             $temp[$i] = $dev['DEVS'][$i]['Temperature'];
         }
-		$pools = $this->listPools();
-		$stratumUrl = "-";
-		foreach($pools as $pool){
-			if($pool['Stratum Active'] == 1){
-				$stratumUrl = $pool['Stratum URL'];
-				break;
-			}
-		}
+		$stratumUrl = $this->getActiveStratum();
 		return new Reading($this->addr,$temp, $hash, $accepted, $rejected, $hardwareErrors, $stratumUrl);
     }
 

@@ -17,6 +17,7 @@ class MinerTest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
 
         $this->miner = new Miner('localhost', 4028);
+		Database::initDb();
     }
 
     /**
@@ -50,9 +51,13 @@ class MinerTest extends PHPUnit_Framework_TestCase {
 
 	}
 	public function testSwitchPool() {
-		$this->miner->switchPool(1);
-		$this->miner->switchPool(0);
+	$this->miner->switchPool(1);
+	$this->miner->switchPool(0);
 	}
 
+	public function testSwitchPoolByName() {
+		$pool = Pool::findByName("Trademybit EU");
+		$this->miner->switchPoolByName($pool->name);
+	}
 
 }
