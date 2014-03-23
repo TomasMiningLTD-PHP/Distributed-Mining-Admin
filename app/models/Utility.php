@@ -30,18 +30,22 @@ class Utility {
         return $lines;
     }
 	public static function getUser() {
+		session_start();
 		if(isset($_SESSION['user']))
 			return $_SESSION['user'];
 		else
 			return NULL;
 	}
 	public static function isLoggedIn() {
+		session_start();
 		return $isset($_SESSION['user']);
 	}
 	public static function login($username){
+		session_start();
 		$_SESSION['user'] = $username;
 	}
 	public static function logout() {
-		unset($_SESSION['user']);
+		session_start();
+		session_destroy();
 	}
 }

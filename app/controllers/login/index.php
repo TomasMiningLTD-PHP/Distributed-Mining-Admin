@@ -4,10 +4,12 @@ require_once(dirname(__FILE__).'/../../models/User.php');
 require_once(dirname(__FILE__).'/../../models/Utility.php');
 function _index(){
     Database::initDb();
-	$username = htmlspecialchars(Database::$db->escapeString($_POST['username']));
+	if(isset($_POST['username']))
+		$username = htmlspecialchars(Database::$db->escapeString($_POST['username']));
+	if(isset($_POST['password']))
 	$password = htmlspecialchars(Database::$db->escapeString($_POST['password']));
-	if(isset($_POST['login']) && Utility::checkUser($username, $password)){
-		Utility::login($username);
+if(isset($_POST['login']) && Utility::checkUser($username, $password)){
+	Utility::login($username);
         header('Location: overview');
     } else {
         $view = new View(APP_PATH . 'views/login.php');
