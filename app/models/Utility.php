@@ -38,7 +38,7 @@ class Utility {
 	}
 	public static function isLoggedIn() {
 		session_start();
-		return $isset($_SESSION['user']);
+		return isset($_SESSION['user']);
 	}
 	public static function login($username){
 		session_start();
