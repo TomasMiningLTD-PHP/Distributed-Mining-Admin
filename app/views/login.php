@@ -37,7 +37,6 @@ and open the template in the editor.
                     </div>
                     <div class="footer">
                         <input type="submit" name="login" value="Login" class="button" />
-                        <input type="submit" name="register" value="Register" class="register" />
                     </div>
                 </form>
                 <div id="errormessage">
