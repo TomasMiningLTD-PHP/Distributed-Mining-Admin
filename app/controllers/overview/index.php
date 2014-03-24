@@ -1,7 +1,13 @@
 <?php
+require_once(dirname(__FILE__).'/../../models/includes.php');
 function _index(){
-    $view = new View(APP_PATH . 'views/overview.html');
-    $view->dump();
+    if(Utility::isLoggedIn()){
+        $view = new View(APP_PATH . 'views/overview.html');
+        $view->dump();
+    }
+    else{
+     header('Location: .');
+    }
 }
 
 
