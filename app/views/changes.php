@@ -32,7 +32,7 @@ and open the template in the editor.
         </header>
         <section id="main_content">
             <div id="main_wrapper">
-                <form class="login-form" action="changes/addUser" method="post">
+                <form class="login-form" action="changes" method="post">
                     <div class="changes_element">
                         <h2>Add user</h2>
                         <h5><?php if (isset($usermessage)) { echo $usermessage; } ?>
@@ -47,16 +47,16 @@ and open the template in the editor.
                     </div>
                     <input type="submit" name="newuser" value="Add new user" class="button" />
                 </form>
-                <form class="login-form" action="changes/addIp" method="post">
+                <form class="login-form" action="changes" method="post">
                     <div class="changes_element">
-                        <h2>Add ip</h2>
+						<h2>Add mining server</h2>
                         <h5><?php if (isset($ipmessage)) { echo $ipmessage; } ?>
                         </h5>
                         <input name="ip" type="text" class="input username" value="IP - address" onfocus="this.value = ''" /><br/>
                     </div>
                     <input type="submit" name="newip" value="Add new ip" class="button" />
                 </form>
-                <form class="login-form" action="changes/changePool" method="post">
+                <form class="login-form" action="changes" method="post">
                     <div class="changes_element">
                         <h2>Change pool</h2>
                         <h5><?php if (isset($poolmessage)) { echo $poolmessage; } ?>
