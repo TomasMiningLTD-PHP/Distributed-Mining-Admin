@@ -12,6 +12,7 @@ and open the template in the editor.
         <link href="css/mining_css.css" rel="stylesheet" type="text/css"/>
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+        <script type="text/javascript" src="js/checkInput.js"></script>
     </head>
     <body>
         <header>
