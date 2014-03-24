@@ -15,7 +15,7 @@ class PoolTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-		$this->pool = new Pool("TestPool", "localhost", "username", "password", "scryp");
+		$this->pool = new Pool("TestingPool", "localhost", "username", "password", "scryp");
 		Database::initDb();
 		$this->pool->persist();
 
