@@ -50,7 +50,10 @@ class Server {
         $result = Database::$db->execMultipleResultsQuery("SELECT * FROM server");
         if ($result == null || sizeof($result) == 0)
             return null;
-        return $result;
+		$ret = array();
+		foreach($result as $pool)
+			$ret[] = new Server($pool['ip'], $pool['owner'], $pool['id']);
+        return $ret;
     }
     
     public function persist()

@@ -36,7 +36,6 @@ class Miner {
 				}	
 			}
 		}
-		print($id);
 		if($id != FALSE){
 			$this->switchPool($id);
 		}
